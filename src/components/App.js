@@ -25,11 +25,8 @@ class App extends React.Component {
   }
 
   addFish = (fish) => {
-    //1. Take a copy of the fishes object
     const fishes = { ...this.state.fishes };
-    // 2. Add our new fish to that fishes variable
     fishes[`fish${Date.now()}`] = fish;
-    // 3. Set the new fishes object to state
     this.setState({
       fishes: fishes,
     });
@@ -46,6 +43,12 @@ class App extends React.Component {
     order[key] = order[key] + 1 || 1;
     // 3. Call setState to update our state object
     this.setState({ order });
+  };
+
+  updateFish = (key, updatedFish) => {
+    const fishes = { ...this.state.fishes };
+    fishes[key] = updatedFish;
+    this.setState({ fishes });
   };
 
   render() {
@@ -67,7 +70,9 @@ class App extends React.Component {
         <Order fishes={this.state.fishes} order={this.state.order} />
         <Inventory
           addFish={this.addFish}
+          updateFish={this.updateFish}
           loadSampleFishes={this.loadSampleFishes}
+          fishes={this.state.fishes}
         />
       </div>
     );
